@@ -9,7 +9,7 @@ require 'oauth'
 class MyTweetWeek < Sinatra::Base
   set :haml, :format => :html5, :attr_wrapper => '"'
   enable :sessions, :static, :raise_errors
-  set :public, File.join(File.dirname(__FILE__), 'public')
+  set :public_dir, File.join(File.dirname(__FILE__), 'public')
 
   get '/' do
     haml :index
@@ -43,8 +43,8 @@ class MyTweetWeek < Sinatra::Base
   
   get '/resume' do
     redirect '/'  unless authenticated?
-    today = Date.today
-    monday = today - today.cwday + 1
+    today = Date.today #get today's date
+    monday = today - today.cwday + 1 #calculate Monday
     search = Twitter::Search.new
     
     @screen_name = client.verify_credentials.screen_name
@@ -82,7 +82,7 @@ class MyTweetWeek < Sinatra::Base
     haml :resume
   end
   
-  error Twitter::Unauthorized do
+  error Twitter::Error::Unauthorized do
     redirect '/'
   end
   

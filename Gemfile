@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'sinatra'
 gem 'haml'
-gem 'twitter'
+gem 'twitter', '4.6.2'
 gem 'oauth'
 gem 'json_pure'
 
